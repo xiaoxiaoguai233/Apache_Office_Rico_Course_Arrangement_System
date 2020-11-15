@@ -1,0 +1,14 @@
+==>  Preparing: select * from t_user WHERE username = ? and password = ?  
+==> Parameters: admin(String), 461bbc33d8adc63a5d319edce923bc7e(String) 
+==>  Preparing: select * from t_user WHERE username = ? and password = ?  
+==> Parameters: a(String), 11eee01b5d848570f3a21d29ea5b2cc5(String) 
+<==      Total: 0 
+==>  Preparing: select * from t_user WHERE username = ? and password = ?  
+==> Parameters: a(String), 11eee01b5d848570f3a21d29ea5b2cc5(String) 
+<==      Total: 0 
+==>  Preparing: select * from t_user WHERE username = ? and password = ?  
+==> Parameters: a(String), 11eee01b5d848570f3a21d29ea5b2cc5(String) 
+<==      Total: 1 
+==>  Preparing: select * from t_user WHERE username = ? and password = ?  
+==> Parameters: a(String), 11eee01b5d848570f3a21d29ea5b2cc5(String) 
+<==      Total: 1 
