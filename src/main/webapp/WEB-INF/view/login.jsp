@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,7 +40,8 @@
 			</div>
 			<div class="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch">
 			  <div class="card mb-0 shadow-none bg-transparent w-100 rounded-0">
-			     <form action="${pageContext.request.contextPath}/user/login" method="POST" class="card-body p-md-5" style="margin-top: 60px">
+				  <!--  action="{pageContext.request.contextPath}/user/login" method="POST"  -->
+			     <form class="card-body p-md-5" style="margin-top: 60px">
 				  <img src="../assets/images/Apache.png" height="80px" width="200px"  alt=""/>
 					 <h4 class="mt-5"><strong>欢迎登陆</strong></h4>
 					 <div class="form-group mt-4">
@@ -54,7 +56,7 @@
 					   <div class="form-group col">
 					   </div>
 					 </div>
-					 <input type="submit" onclick="login()" class="btn btn-primary btn-block mt-3" value="登录" />
+					 <input type="button" onclick="login()" class="btn btn-primary btn-block mt-3" value="登录" />
 					 <div class="text-center mt-4">
 						<br> <br> <br>
 						<p class="card-text" style="font-size: 15px;font-weight: 400;">欢迎使用睿科选课排课系统</p>
@@ -76,7 +78,7 @@
 	
 	
 	<!--start switcher-->
-	   <div class="switcher-wrapper">
+    <div class="switcher-wrapper">
 	       <div class="switcher-btn">
 		       <i class='bx bx-cog bx-spin'></i>
 		   </div>
@@ -96,45 +98,45 @@
 			  </div>
 		   </div>
 	   </div>
-	 <!--end switcher-->
+    <!--end switcher-->
 
 	 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="../assets/js/jquery.min.js"></script>
 
 	<script>
-
+        //  action="$pageContext.request.contextPath}/user/login" method="POST"
 		function login() {
 			var data = {
 				username: document.getElementById("username").value,
 				password: document.getElementById("password").value
 			}
-			console.log(data);
+			//console.log(data);
 
 			$.ajax({
 				url: "/user/login",
 				type:"POST",
 				data: data,
 				datatype: 'json',
-				success: function(data) {
-					console.log(data)
+				success: function(res) {
+					console.log(res.map.code)
+                    if ( res != null ){
+                    	if (res.map.code == "200"){
+							location.href = "/admin/index";
+						}
+                    }
 				}
 			})
 		}
-
-
-
-
-
 
 	
 		$(".switcher-btn").on("click", function () {
 			$(".switcher-wrapper").toggleClass("switcher-toggled");
 		});
-		
+
 		$("#darkmode").on("click", function () {
 			$("html").addClass("dark-theme");
 		});
-		
+
 		$("#lightmode").on("click", function () {
 			$("html").removeClass("dark-theme");
 		});

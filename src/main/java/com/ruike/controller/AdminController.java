@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-
     // 路径请求
     @RequestMapping("/{pages}")
     public String UserUrl(@PathVariable String pages){
-        System.out.println(pages);
-        return "index";
+        return "/admin/" + pages;
     }
 }

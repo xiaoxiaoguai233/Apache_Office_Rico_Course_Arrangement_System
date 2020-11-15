@@ -3,6 +3,7 @@ package com.ruike.controller;
 import java.util.List;
 
 import com.ruike.utils.MD5Utils;
+import com.ruike.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruike.pojo.User;
 import com.ruike.service.UserService;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author 吴泽胜
  * @FileName UseranageController
  * @date 2020-11-11 12:27 下午
  * @Software: IntelliJ IDEA
  */
+
 @Controller
 public class UserManageController {
 	
@@ -37,26 +41,25 @@ public class UserManageController {
 	@RequestMapping("/user/register")
 	public String register(User user) throws Exception{
 		userService.addUser(user);
-		return "success";
+		return "admin/success";
 	}
 	//用户登录
 	@RequestMapping("/user/login")
-	public String login(User user, Model model) throws Exception{
-
-		System.out.println(user.toString());
+	@ResponseBody
+	public Object login(User user, Model model, HttpSession httpSession) throws Exception{
 		// 密码加密
 		user.setPassword(new MD5Utils().getMD5(user.getPassword()));
-		System.out.println(user.toString());
 		User u = userService.findUserByUsernameAndPassword(user);
 
 		if(u !=null){
 			String username = u.getUsername();
 			model.addAttribute("username",username);
-			return "admin/index";
+			httpSession.setAttribute("user", user);
+			return MapControl.getInstance().success();
 		}else{
 			String error = "用户名或密码错误";
 			model.addAttribute("user",error);
-			return "login";
+			return "";
 		}
 		
 	}
@@ -64,7 +67,6 @@ public class UserManageController {
 	@RequestMapping(value = "/checkUsername",method = RequestMethod.POST)
 	@ResponseBody
 	public User checkUsername(String username) throws Exception{
-		
 		User user = userService.findUserByName(username);
 		return user;
 	}
@@ -72,9 +74,7 @@ public class UserManageController {
 	@RequestMapping("/searchUser")
 	@ResponseBody
 	public List<User> findUserByName(String username) throws Exception{
-		
 		List<User> userListByName = userService.getUserListByName(username);
-		
 		return userListByName;
 	}
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ruike.mapper.StudentMapper">
+
+    <!--添加学生  -->
+    <insert id="addStudent" parameterType="Student">
+ 		insert into student
+ 			(id,nickName,student_id,password,gender,age,Class,major,college,start_school,address,iphone,student_status,
+ 			idCard,guardian_name,guardian_iphone,release_time)
+
+ 		values	(#{id},#{nickName},#{student_id},#{password},#{gender},#{age},#{Class},#{major},#{college},#{start_school},#{address},#{iphone},
+ 				#{student_status},#{idCard},#{guardian_name},#{guardian_iphone},#{release_time} )
+
+ 	</insert>
+
+	<!--通过 id查询 学生-->
+	<select id="findStudentIdById"  parameterType="Integer" resultType="Student" >
+ 		select * from student where id = #{id}
+ 	</select>
+
+	<!-- 查询所有学生 -->
+	<select id="getStudentList" resultType="Student">
+ 		select * from student
+ 	</select>
+
+	<!-- 根据学生姓名查询学生 -->
+	<select id="findStudentByName" parameterType="String" resultType="Student">
+ 		select * from student where nickName = #{nickName}
+ 	</select>
+
+	<!-- 根据学生名模糊查询学生 -->
+	<select id="getStudentListByName" parameterType="String" resultType="Student">
+ 		select * from student where nickName like "%"#{nickName}"%" limit 0,5
+ 	</select>
+
+	<!-- 根据学生学号查询学生 -->
+	<select id="findStudentIdByStudentId" parameterType="String" resultType="Student">
+ 		select * from student where student_id = #{student_id}
+ 	</select>
+
+	<!-- 根据学生学号模糊查询学生 -->
+	<select id="findStudentIdListByStudentId" parameterType="String" resultType="Student">
+ 		select * from student where nickName like "%"#{student_id}"%" limit 0,5
+ 	</select>
+
+
+	<!-- 学生登录 -->
+	<select id="findStudentByStudent_idAndPassword" parameterType="Student" resultType="Student">
+		select * from student
+		<where>
+			<if test="student_id != null and student_id != '' ">
+				student_id = #{student_id}
+			</if>
+			<if test="password != null and password != '' ">
+				and password = #{password}
+			</if>
+		</where>
+	</select>
+
+</mapper>
+
+
+

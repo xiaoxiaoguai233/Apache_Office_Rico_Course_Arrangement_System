@@ -27,7 +27,7 @@ public class MD5Utils {
      * @param args
      */
     public static void main(String[] args) {
-        String md5 = new MD5Utils().getMD5("123456");
+        String md5 = new MD5Utils().getMD5("a");
         System.out.println(md5 + "    " + md5.length());
     }
 }
